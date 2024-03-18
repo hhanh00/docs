@@ -1,0 +1,32 @@
+name: GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.113.0'
+          extended: true
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v4
+      - name: Build
+        run: |
+          hugo mod get
+          hugo --minify --gc --baseURL "${{ steps.pages.outputs.base_url }}/" 
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          
