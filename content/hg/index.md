@@ -52,6 +52,10 @@ your favorite movie of the franchise?"
 }
 ```
 
+1. Reply MUST be a valid JSON object
+  - data field MAY be omitted. It defaults to "".
+  - assets field MAY be omitted. It defaults to [].
+  - followup field MAY be omitted. It defaults to [].
 1. Paragraphs SHOULD begin with `<p>`. (The first paragraph MAY not have it)
 1. Assets MUST be images or videos
 1. References to assets MUST be `[[Asset-#]]`. The `#` is the
@@ -63,7 +67,8 @@ index of the asset in the `assets` array
 # Content Feed
 
 The first reply from the server MUST be the content feed.
-It SHOULD have no data.
+It MAY have no data. The client will ignore the data field.
+It SHOULD have assets. If not, the content feed is empty.
 
 # Sequence
 
