@@ -57,6 +57,7 @@ your favorite movie of the franchise?"
   - assets field MAY be omitted. It defaults to [].
   - followup field MAY be omitted. It defaults to [].
 1. Paragraphs SHOULD begin with `<p>`. (The first paragraph MAY not have it)
+1. Paragraphs after assets MAY not begin with `<p>`
 1. Assets MUST be images or videos
 1. References to assets MUST be `[[Asset-#]]`. The `#` is the
 index of the asset in the `assets` array
@@ -64,11 +65,43 @@ index of the asset in the `assets` array
 1. Assets SHOULD have a title
 1. Follow up MUST be simple text (no markup)
 
+{{% notice info %}}
+The parser splits the data field using a regex that matches
+`<p>` or `[[Asset-#]]`. Strings between these separators are
+paragraphs, and `[[Asset-#]]` emits an asset.
+Empty paragraphs are removed.
+{{% /notice %}}
+
+
 # Content Feed
 
-The first reply from the server MUST be the content feed.
-It MAY have no data. The client will ignore the data field.
-It SHOULD have assets. If not, the content feed is empty.
+1. The first reply from the server MUST be the content feed.
+It MAY have no data. The client will ignore the data field
+1. It SHOULD have assets. If not, the content feed is empty.
+The content feed is the array of assets
+1. It SHOULD have followups
+1. Assets and followup requirements from previous section apply
+
+{{% notice note %}}
+Even though the content feed has an empty data field, 
+it assumed to reference
+to every asset, i.e. `[[Asset-0]][[Asset-1]][[Asset-2]]`...
+{{% /notice %}}
+
+```json
+{
+  "assets": [
+    {
+      "url": "https://en.wikipedia.org/wiki/Katniss_Everdeen#/media/File:Katniss_Everdeen.jpg",
+      "title": "Katniss Everdeen, as portrayed by Jennifer Lawrence in the film the Hunger Games"
+    }
+  ],
+  "followup": [
+    "How did Jennifer Lawrence prepare for the role of Katniss Everdeen?",
+    "What were the challenges Jennifer Lawrence faced while filming \"The Hunger Games\"?"
+  ]
+}
+```
 
 # Sequence
 
