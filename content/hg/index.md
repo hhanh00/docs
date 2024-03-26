@@ -42,7 +42,8 @@ your favorite movie of the franchise?"
   "assets": [
     {
       "url": "https://en.wikipedia.org/wiki/Katniss_Everdeen#/media/File:Katniss_Everdeen.jpg",
-      "title": "Katniss Everdeen, as portrayed by Jennifer Lawrence in the film the Hunger Games"
+      "title": "Katniss Everdeen, as portrayed by Jennifer Lawrence in the film the Hunger Games",
+      "metadata":{"height":1365,"width":2048,"type":"image"}
     }
   ],
   "followup": [
@@ -72,6 +73,16 @@ paragraphs, and `[[Asset-#]]` emits an asset.
 Empty paragraphs are removed.
 {{% /notice %}}
 
+## Image Metadata
+
+- Assets SHOULD have a metadata field that indicates height, width and type.
+If absent, the FE will get the dimensions from the data (but it may
+cause a suboptimal UX) and the type defaults to "image"
+- type MUST be either "image" or "video"
+
+```
+metadata":{"height":1365,"width":2048,"type":"image"}
+```
 
 # Content Feed
 
