@@ -435,6 +435,10 @@ We need to include it in the docker compose file
 and create a zcash service that also has the 
 `zcash-client`. 
 
+In order to reduce the rebuilding of docker images,
+`zcash-client` sits in its own container and 
+`zcashd` comes from the official image (if there is one).
+
 This is similar to the deployment of other chains
 such as LTC, DOGE, etc.
 
