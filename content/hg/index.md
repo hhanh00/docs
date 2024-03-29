@@ -2,7 +2,7 @@
 title: HG API
 ---
 
-## Terminology 
+## Terminology
 
 The key words "MUST", "SHOULD", "NOT RECOMMENDED", and "MAY" in this document are to be interpreted as described in BCP 14 1 when, and only when, they appear in all capitals.
 
@@ -94,7 +94,7 @@ The content feed is the array of assets
 1. Assets and followup requirements from previous section apply
 
 {{% notice note %}}
-Even though the content feed has an empty data field, 
+Even though the content feed has an empty data field,
 it assumed to reference
 to every asset, i.e. `[[Asset-0]][[Asset-1]][[Asset-2]]`...
 {{% /notice %}}
@@ -111,6 +111,54 @@ to every asset, i.e. `[[Asset-0]][[Asset-1]][[Asset-2]]`...
     "How did Jennifer Lawrence prepare for the role of Katniss Everdeen?",
     "What were the challenges Jennifer Lawrence faced while filming \"The Hunger Games\"?"
   ]
+}
+```
+
+## Get Followup of Content Feed Image
+
+When the user selects an image from the content feed and switches to the
+chat, the FE MUST display a list of followup questions.
+
+The FE will send a `GetFollowupRequest` request to the BE and expects
+a `GetFollowupResponse`
+
+### GetFollowupRequest
+
+```json
+{
+  "get_followup": "https://en.wikipedia.org/wiki/Katniss_Everdeen#/media/File:Katniss_Everdeen.jpg"
+}
+```
+
+The content of the `get_followup` is the URL of the asset as returned
+in the content feed.
+
+### GetFollowupResponse
+
+```json
+{
+  "followup": [
+    "How did Jennifer Lawrence prepare for the role of Katniss Everdeen?",
+    "What were the challenges Jennifer Lawrence faced while filming \"The Hunger Games\"?"
+  ]
+}
+```
+
+## Keep Alive (Ping/Pong)
+The FE will periodically send a `ping` message and expects to receive
+a `pong` message.
+
+### Ping
+```json
+{
+  "ping": null
+}
+```
+
+### Pong
+```json
+{
+  "pong": null
 }
 ```
 
